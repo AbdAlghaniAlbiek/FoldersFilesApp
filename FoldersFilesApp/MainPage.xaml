@@ -1,0 +1,893 @@
+﻿<Page
+    x:Class="FoldersFilesApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FoldersFilesApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:path="using:FoldersFilesApp.Classes"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="DocumentsLibraryItemsSource" 
+                              Source="{x:Bind GroupItems}" 
+                              IsSourceGrouped="True"
+                              ItemsPath="DocumentLibraryItems"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot Title="File,Folders and librabies" Foreground="Blue">
+            <!--Create,Delete,Write,Read Files-->
+            <PivotItem Header="Create,Read,WriteFile">
+                <Grid Margin="24 0" 
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--This grid contain the all operations (Create,Delete,Write and Read files)-->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!--It's contain on Create and delete operation -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--This section for How to create a file-->
+                            <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="Gray"
+                                    BorderThickness="0 0 0 1"
+                                    Grid.Column="0">
+                                <TextBlock HorizontalAlignment="Left" 
+                                   Text="Create file:" 
+                                   Foreground="Black"
+                                   Margin="12 0 0 0"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                <TextBox x:Name="txtCreatingFile"
+                                 HorizontalAlignment="Left"
+                                 Width="200"
+                                 Margin="24 12 0 0"
+                                 Header="File name:"
+                                 PlaceholderText="Enter useful name"/>
+                                <Button x:Name="btnCreatingFile"
+                               HorizontalAlignment="Left"
+                               Width="100"
+                               Height="40"
+                               Margin="24 40 0 0"
+                               Background="Purple"
+                               Click="btnCreatingFile_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Add" Foreground="White"/>
+                                            <TextBlock Text="Create" Style="{StaticResource BodyTextBlockStyle}"
+                                               Foreground="White" Margin="8 0 0 0"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+
+                            <!--This section for How to delete a file-->
+                            <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        BorderBrush="Gray"
+                                        BorderThickness="0 0 0 1"
+                                        Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Left" 
+                                           Text="Delete file:" 
+                                           Foreground="Black"
+                                           Margin="12 0 0 0"
+                                           Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                <TextBlock x:Name="txtBlockDeletingFileName"
+                                           HorizontalAlignment="Left"
+                                           Foreground="Black"
+                                           Width="200"
+                                           Margin="24 40 0 0"
+                                           Text="File name:"/>
+                                <Button x:Name="btnDeletingFile"
+                                        HorizontalAlignment="Left"
+                                        Width="100"
+                                        Height="40"
+                                        Margin="24 40 0 0"
+                                        Background="DarkRed"
+                                        Click="btnDeletingFile_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Delete" Foreground="White"/>
+                                            <TextBlock Text="Delete" Style="{StaticResource BodyTextBlockStyle}"
+                                               Foreground="White" Margin="8 0 0 0"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                         
+                        <!--This section for how to write a text in a file -->
+                        <StackPanel Grid.Row="1"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="Gray"
+                                    BorderThickness="0 0 0 1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Text="Write text to a file:" 
+                                   Margin="12 0 0 0"
+                                   Foreground="Black"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="txtBlockFileName"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Margin="24 24 0 0"
+                                           Foreground="Purple"
+                                           Text="You Selected: "/>
+                                <TextBox x:Name="writeTextOfFile" 
+                                         Width="200"
+                                         Height="160"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Margin="100 4 0 0"
+                                         TextWrapping="Wrap"
+                                         Header="Write here:">
+                                </TextBox>
+                                <Button x:Name="btnSave"
+                                        HorizontalAlignment="Left"
+                                        Width="100"
+                                        Height="40"
+                                        Margin="12 40 0 0"
+                                        Background="Purple"
+                                        Click="btnSave_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Save" Foreground="White"/>
+                                            <TextBlock Text="Save" Style="{StaticResource BodyTextBlockStyle}"
+                                               Foreground="White" Margin="8 0 0 0"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--This section for how to Read a text from a file -->
+                        <StackPanel Grid.Row="2"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="Gray"
+                                    BorderThickness="0 0 0 1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Text="Read text to a file:" 
+                                   Margin="12 0 0 0"
+                                   Foreground="Black"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="txtBlockFileName2"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Margin="24 24 0 0"
+                                           Foreground="Purple"
+                                           Text="You Selected: "/>
+                                <TextBlock x:Name="readTextOfFile" 
+                                         Width="200"
+                                         Height="160"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Margin="100 4 0 0"
+                                         Foreground="Black"
+                                         TextWrapping="Wrap">
+                                          You don't read any file yet
+                                        <LineBreak/>
+                                          press on button to read a text of file                                    
+                                </TextBlock>
+                                <Button x:Name="btnRead"
+                                        HorizontalAlignment="Left"
+                                        Width="100"
+                                        Height="40"
+                                        Margin="12 40 0 0"
+                                        Background="Purple"
+                                        Click="btnRead_Click">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Read" Foreground="White"/>
+                                            <TextBlock Text="Read" Style="{StaticResource BodyTextBlockStyle}"
+                                               Foreground="White" Margin="8 0 0 0"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--The list that displays the existed files in localfolder-->
+                    <ListView x:Name="listApplicationDataFiles"
+                              Grid.Column="0"
+                              Margin="0 12 0 0"
+                              ItemsSource="{x:Bind ApplicationDataItems}"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              SelectionChanged="listApplicatoinDataFiles_SelectionChanged">
+
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="List of files of LocalFolder:" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:ApplicationDataItem">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Ellipse Width="48" Height="48" Stroke="Black" StrokeThickness="0.8">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="ms-appx:///Assets/Icons/TXT_40px.png" Stretch="None"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Orientation="Vertical" Margin="12">
+                                        <TextBlock Text="{x:Bind FileName}" Style="{StaticResource BodyTextBlockStyle}" Foreground="Purple"/>
+                                        <TextBlock Text="{x:Bind FileType}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Gray" Margin="0 4 0 0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <AddDeleteThemeTransition/>
+                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+
+            <!--Properties Files-->
+            <PivotItem Header="PropertiesFile">
+                <Grid Margin="24 0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--This list displays the existed pictures files in PictureLibrary-->
+                    <ListView Grid.Column="0"
+                              x:Name="listPictures"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              ItemsSource="{x:Bind PicturesLibraryItems}"
+                              SelectionChanged="listPictures_SelectionChanged">
+                        
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Pictures List" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="Black"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:PicruresLibraryItem">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Ellipse Width="48" Height="48" Stroke="Black" StrokeThickness="0.8">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ImagePath}" Stretch="None"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Orientation="Vertical" Margin="12">
+                                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource BodyTextBlockStyle}" Foreground="Blue" Text="{x:Bind FileName}"/>
+                                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Gray" Text="{x:Bind FileType}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+
+                    <!--This grid contain all properties types-->
+                    <Grid HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!--This section for Top-Level properties-->
+                        <StackPanel Grid.Row="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="Black"
+                                    BorderThickness="0 0 0 1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Text="Top-Level Properties:" 
+                                   Foreground="Blue"
+                                   Margin="12 0 0 0"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockFileName"
+                                   HorizontalAlignment="Left"
+                                   Margin="24 8 0 0" 
+                                   Text="File Name: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockFileType"
+                                   HorizontalAlignment="Left" 
+                                   Margin="24 8 0 0"
+                                   Text="File Type: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+
+                        <!--This section for Basics properties-->
+                        <StackPanel Grid.Row="1"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="Black"
+                                    BorderThickness="0 0 0 1">
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Text="Basics Properties:" 
+                                   Foreground="Blue"
+                                   Margin="12 0 0 0"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockSizeFile"
+                                   HorizontalAlignment="Left"
+                                   Margin="24 8 0 0" 
+                                   Text="Size: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockDateModified"
+                                   HorizontalAlignment="Left" 
+                                   Margin="24 8 0 0"
+                                   Text="Last Modified Date: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+
+                        <!--This section for extended properies-->
+                        <StackPanel Grid.Row="2"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                            <TextBlock HorizontalAlignment="Left" 
+                                   Text="Expended Properties:" 
+                                   Foreground="Blue"
+                                   Margin="12 0 0 0"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockDateAccessed"
+                                   HorizontalAlignment="Left"
+                                   Margin="24 8 0 0" 
+                                   Text="Accessed Date: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Name="textBlockOwnerFile"
+                                   HorizontalAlignment="Left" 
+                                   Margin="24 8 0 0"
+                                   Text="Owner File: "
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            
+            <!--Enumerate and query files and folders-->
+            <PivotItem Header="Enumerate,QueryFilesFolders">
+                <Grid HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--listView give you the result-->
+                    <ListView x:Name="listDocumentsLibrary"
+                              Grid.Column="0"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              ItemsSource="{Binding Source={StaticResource DocumentsLibraryItemsSource}}"
+                              SelectionMode="None">
+                        
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Documents Library"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" FontWeight="Bold" Text="{Binding Key}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:DocumentsLibraryItem">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <PersonPicture Width="48" Height="48" BorderBrush="White" BorderThickness="0.8" FontStretch="Normal" ProfilePicture="{x:Bind ItemImage}" BadgeGlyph="&#xE8FB;"/>
+                                    <StackPanel Margin="12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ItemName}"/>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding ItemType}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+
+                    <!--Displays the operation that you test it -->
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal"
+                                    Width="Auto"
+                                    Height="Auto"
+                                    Margin="8 0 0 0">
+                            <SymbolIcon Symbol="Filter" Foreground="Black"/>
+                            <TextBlock HorizontalAlignment="Left"
+                                       Margin="4 0 0 0"
+                                       Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Foreground="Black"
+                                       Text="Type of filter:"/>
+                        </StackPanel>
+                     
+                        <Border x:Name="bordAlphabetSorting"
+                                HorizontalAlignment="Center"
+                                Margin="0 40 0 0"
+                                BorderThickness="1"
+                                BorderBrush="Black"
+                                Background="LightGray"
+                                CornerRadius="20"
+                                Width="Auto"
+                                Height="Auto"
+                                Tapped="bordAlphaperSorting_Tapped">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="ms-appx:///Assets/Icons/ThirdPivotPictures/Alphabetical_Sorting_40px.png"/>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Margin="4 0 0 0"
+                                           Style="{StaticResource SubheaderTextBlockStyle}"
+                                           Foreground="Black"
+                                           Text="Alphabetical Sorting"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="bordSortingByType"
+                                HorizontalAlignment="Center"
+                                Margin="0 40 0 0"
+                                BorderThickness="1"
+                                BorderBrush="Black"
+                                Background="LightGray"
+                                CornerRadius="20"
+                                Width="Auto"
+                                Height="Auto"
+                                Tapped="bordSortingByType_Tapped">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="ms-appx:///Assets/Icons/ThirdPivotPictures/Type_Sorting_40px.png"/>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Margin="4 0 0 0"
+                                           Style="{StaticResource SubheaderTextBlockStyle}"
+                                           Foreground="Black"
+                                           Text="Sorting by Type"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="bordSortingByDate"
+                                HorizontalAlignment="Center"
+                                Margin="0 40 0 0"
+                                BorderThickness="1"
+                                BorderBrush="Black"
+                                Background="LightGray"
+                                CornerRadius="20"
+                                Width="Auto"
+                                Height="Auto"
+                                Tapped="bordSortingByDate_Tapped">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="ms-appx:///Assets/Icons/ThirdPivotPictures/Date_Sorting_40px.png"/>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Margin="4 0 0 0"
+                                           Style="{StaticResource SubheaderTextBlockStyle}"
+                                           Foreground="Black"
+                                           Text="Sorting by Date"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+            
+            <!--File open picker & Folder picker-->
+            <PivotItem Header="File,FolderOpenPicker">
+                <Grid HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--It's Contain buttons that ile,Folder open picker with Single items-->
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Orientation="Vertical"
+                                Margin="0 80 0 0">
+                        
+                        <Button x:Name="btnPickSingleFile"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Content="Pick Single File"
+                                Background="LightBlue"
+                                Foreground="Black"
+                                Click="btnPickSingleFile_Click"/>
+                        
+                        <Button x:Name="btnPickSingleFolder"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin="0 12 0 0"
+                                Content="Pick Single Folder"
+                                Background="LightBlue"
+                                Foreground="Black"
+                                Click="btnPickSingleFolder_Click"/>
+
+
+                    </StackPanel>
+
+                    <!--This button for pick 'single' folder there isn't task that pick multiple folders-->
+                    <Button x:Name="btnPickMultipleFiles"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0 12 0 0"
+                            Content="Pick Multiple Files"
+                            Background="LightBlue"
+                            Foreground="Black"
+                            Click="btnPickMultipleFiles_Click"/>
+         
+                    <!--TextBlock to display the File,Folder: Name,Path there is symbolIcon to display the a special icon for folder or file-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Margin="0 12 0 0"
+                                Orientation="Vertical">
+                        <Image x:Name="imageDiplayFileFolderType"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Margin="0 60 0 0"
+                                    Width="48"
+                                    Height="48"
+                                    Source="ms-appx:///Assets/Icons/Cancel_40px.png"/>
+                        <TextBlock x:Name="txtDisplayFileFolderNamePath"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Margin="0 12 0 0"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="Black"
+                                   Text="You don't pick any file or folder"/>
+                    </StackPanel>
+
+                    <!--ListView that displays the files and folders that you picked it-->
+                    <ListView x:Name="listPickedFoldersFiles"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              SelectionMode="None"
+                              BorderBrush="Black"
+                              BorderThickness="1 0 0 0"
+                              ItemsSource="{x:Bind ItemsOpenPicker}">
+                        
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="4 0 0 0" HorizontalAlignment="Left" Foreground="Blue" Style="{StaticResource SubtitleTextBlockStyle}" Text="Multiple Files Folders"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:ItemOpenPicker">
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                                    <Ellipse Width="48" Height="48" Stroke="Black" StrokeThickness="0.8">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ItemImage}" Stretch="None"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="12" Orientation="Vertical">
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ItemName}"/>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ItemPath}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+                                
+                </Grid>
+            </PivotItem>
+            
+            <!--File Save picker-->
+            <PivotItem Header="SaveFilePicker">
+                <StackPanel HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Orientation="Vertical">
+                    
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Top"
+                               Margin="0 60 0 0"
+                               Foreground="Blue"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="Enter a text to save it"/>
+                    <TextBox x:Name="txtFileNameForSaving"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             Margin="0 20 0 0"
+                             Width="200"
+                             Height="100"
+                             PlaceholderText="Enter file name"
+                             Foreground="Black"/>
+                    <TextBox x:Name="txtForSaving"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             Margin="0 20 0 0"
+                             Width="400"
+                             Height="200"
+                             PlaceholderText="The file will be with .txt format"
+                             Foreground="Black"/>
+                    <Button x:Name="btnSaveText"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Margin="0 20 0 0"
+                            Background="Blue"
+                            Width="200"
+                            Height="100"
+                            Click="btnSaveText_Click">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Save" Foreground="White"/>
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Foreground="White"
+                                           Margin="8 0 0 0"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="Save"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    
+                </StackPanel>
+            </PivotItem>
+            
+            <!--MostRecentlyUsedList (MRU) and Future Access List-->
+            <PivotItem Header="MRUandFutureAccessList">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Contain's on buttons that display fileOpenPicker and folderPicker-->
+                    <StackPanel HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" 
+                                Orientation="Horizontal"
+                                Margin="0 20 0 0"
+                                Grid.Row="0"
+                                Grid.Column="0">
+                        <Button x:Name="btnFileOpenPicker"
+                            Width="100"
+                            Height="50"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="Pick a file"
+                            Foreground="White"
+                            Background="Blue"
+                            Click="btnFileOpenPicker_Click"/>
+
+                        <Button x:Name="btnFolderPicker"
+                            Width="100"
+                            Height="50"
+                            Margin="20 0 0 0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Content="Pick a Folder"
+                            Foreground="White"
+                            Background="Blue"
+                            Click="btnFolderPicker_Click"/>
+
+                    </StackPanel>
+                                
+                    <!--Contain's on textblocks that display fileName and metadata when listview is selected-->
+                    <StackPanel HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Orientation="Vertical"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0 20 0 0">
+                        <TextBlock x:Name="txtFutureAccessListFileName" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="File Name: "/>
+                        <TextBlock x:Name="txtFutureAccessListMetadata" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="0 8 0 0"
+                                   Foreground="Black"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="Metadata: "/>
+                    </StackPanel>
+                    
+                    <!--ListView that show us Future Access List-->
+                    <ListView x:Name="listFutureAccessList"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Margin="0 20 0 0" 
+                              SelectionMode="Single"
+                              ItemsSource="{x:Bind FutureAccessListItems}"
+                              SelectionChanged="listFutureAccessList_SelectionChanged">
+
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="4 0 0 0" HorizontalAlignment="Left" Foreground="Blue" Style="{StaticResource SubtitleTextBlockStyle}" Text="Future Access List"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:FutureAccessItem">
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                                    <Ellipse Width="48" Height="48" Stroke="Black" StrokeThickness="0.8">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ItemImage}" Stretch="None"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="12" Orientation="Vertical">
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ItemName}"/>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ItemOpenedTime}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+
+                    <!--ListView that show us Most Recently Used-->
+                    <ListView x:Name="listMostRecentlyUsed"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Margin="0 20 0 0"
+                              SelectionMode="Single"
+                              BorderThickness="1 0 0 0"
+                              BorderBrush="Black"
+                              ItemsSource="{x:Bind MostRecentlyUsedItems}"
+                              SelectionChanged="listMostRecentlyUsed_SelectionChanged">
+
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="4 0 0 0" HorizontalAlignment="Left" Foreground="Blue" Style="{StaticResource SubtitleTextBlockStyle}" Text="Most Recently Used"/>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="path:FutureAccessItem">
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                                    <Ellipse Width="48" Height="48" Stroke="Black" StrokeThickness="0.8">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ItemImage}" Stretch="None"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="12" Orientation="Vertical">
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ItemName}"/>
+                                        <TextBlock HorizontalAlignment="Left" Foreground="Black" Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ItemOpenedTime}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
+                    </ListView>
+
+                </Grid>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

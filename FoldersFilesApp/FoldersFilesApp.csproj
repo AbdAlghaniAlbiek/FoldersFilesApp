@@ -133,6 +133,11 @@
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\Screenshots\Create,Read,WriteFile.jpg" />
+    <Content Include="Assets\Screenshots\Files,FolderOpenPicker.jpg" />
+    <Content Include="Assets\Screenshots\MRUandFurtureAccessList.jpg" />
+    <Content Include="Assets\Screenshots\PropertiesFile.jpg" />
+    <Content Include="Assets\Screenshots\SaveFIlePicker.jpg" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />

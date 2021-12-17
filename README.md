@@ -3,7 +3,7 @@
   <img src="https://github.com/AbdAlghaniAlbiek/FoldersFilesApp/blob/master/FoldersFilesApp/Assets/FilesFoldersAppIcon.png"/>
 </p>
 
-![Twitter Follow](https://img.shields.io/twitter/follow/AbdAlbiek?style=social) 
+![Twitter Follow](https://img.shields.io/twitter/follow/AbdAlbiek?style=social) ![GitHub](https://img.shields.io/github/license/AbdAlghaniAlbiek/FoldersFilesApp)
 
 ## Table of content
 * [General Info](#general-information)
@@ -14,7 +14,11 @@
 * [Project Status](#project-status)
 
 
-## General Information
+## General Information![FilesFoldersAppIcon](https://user-images.githubusercontent.com/37735487/146604597-081d2424-11af-471a-898b-4483f78a9cfd.png)![FilesFoldersAppIcon](https://user-images.githubusercontent.com/37735487/146604593-57f3d77b-af77-4ffb-a241-8d6aa6d70cdc.png)![FilesFoldersAppIcon](https://user-images.githubusercontent.com/37735487/146604600-3cae45a2-5060-46d5-94ca-40e3426c40c3.png)![FilesFoldersAppIcon](https://user-images.githubusercontent.com/37735487/146604598-d70292d6-b3e4-43e9-8a0c-314bc4ed50e4.png)
+
+
+
+
 This is a UWP application and had used for demoing purposes and showing how to use Windows.Storage APIs and how to deal with them
 
 ## UWP APIs had Used
@@ -58,5 +62,5 @@ Many Windows.Storage APIs are used here like:
 * All the features that descriped above is in this version.
 
 ## Project status
-This _project is no longer being worked on_ but the contributions are still welcome.
+This project is `no longer being worked on` but the contributions are still welcome.
 

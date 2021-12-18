@@ -48,8 +48,8 @@ Many Windows.Storage APIs are used here like:
 
 ## Setup
 * Visual Studio 2019 at least.
-* Windows 10 OS, Version: Fall Creator Update (16299) and above.
-* Windows 10 Fall Creator (16299) SDK.
+* Windows 10 OS, Version: Fall Creator Update (10.0; Build: 16299) and above.
+* Windows 10 Fall Creator SDK.
 * There is no dependecies to install them. 😊
 
 ## Version

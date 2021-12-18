@@ -7,7 +7,7 @@
 
 ## Table of content
 * [General Info](#general-information)
-* [Technologies Used](#uwp-apis-had-used)
+* [UWP APIs had used](#uwp-apis-had-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
@@ -17,7 +17,7 @@
 ## General Information
 This is a UWP application just used for demoing purposes and showing how to use Windows.Storage APIs and how to deal with them
 
-## UWP APIs had Used
+## UWP APIs had used
 Many Windows.Storage APIs are used here like:
 * StorageFile
 * StorageFolder

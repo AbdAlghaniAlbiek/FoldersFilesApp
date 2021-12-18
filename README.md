@@ -15,7 +15,7 @@
 
 
 ## General Information
-This is a UWP application and had used for demoing purposes and showing how to use Windows.Storage APIs and how to deal with them
+This is a UWP application just used for demoing purposes and showing how to use Windows.Storage APIs and how to deal with them
 
 ## UWP APIs had Used
 Many Windows.Storage APIs are used here like:

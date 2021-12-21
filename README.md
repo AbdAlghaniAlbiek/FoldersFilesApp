@@ -1,6 +1,6 @@
 # FoldersFilesApp
 <p align="center">
-  <img src="https://github.com/AbdAlghaniAlbiek/FoldersFilesApp/blob/master/FoldersFilesApp/Assets/FilesFoldersAppIcon.png"/>
+  <img width="300" height="300" src="https://github.com/AbdAlghaniAlbiek/FoldersFilesApp/blob/master/FoldersFilesApp/Assets/FilesFoldersAppIcon.png"/>
 </p>
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/AbdAlbiek?style=social) ![GitHub](https://img.shields.io/github/license/AbdAlghaniAlbiek/FoldersFilesApp)
